@@ -1,0 +1,3 @@
+[submodule "quorum-tests"]
+	path = quorum-tests
+	url = https://github.com/blockapps/quorum-tests
