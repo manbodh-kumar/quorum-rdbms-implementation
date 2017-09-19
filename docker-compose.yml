@@ -1,0 +1,158 @@
+
+version: "2.1"
+services:
+  bloch:
+    depends_on:
+    - quorum-strato
+    - postgres
+    environment:
+    - pghost=${pghost}
+    - pgpasswd=${pgpasswd}
+    - pguser=${pguser}
+    - ssl=${ssl}
+    - stratoHost=${stratourl:-quorum-strato}
+    - stratourl=${stratourl}/eth/v1.2
+    - cirrusurl=${cirrusurl}
+    image: registry-aws.blockapps.net:5000/blockapps/bloc-solc:0.1
+    ports:
+    - 10001:8000
+    restart: always
+  cirrus:
+    depends_on:
+    - quorum-strato
+    environment:
+    - zookeeper_conn=${cirrus_zookeeper_conn}
+    - postgres_db=${cirrus_pg_db:-cirrus}
+    - postgres_host=${cirrus_pg_host:-postgres}
+    - postgres_password=${cirrus_pg_password}
+    - postgres_port=${cirrus_pg_port:-5432}
+    - postgres_user=${cirrus_pg_user:-postgres}
+    - stateDiffTopic=${stateDiffTopic}
+    - stratourl=${stratourl}
+    image: registry-aws.blockapps.net:5000/blockapps-repo/silo-cirrus:09162017-1545
+    links:
+    - quorum-strato:quorum-strato
+    - postgres-cirrus:postgres
+    restart: always
+    ports:
+    - 3333:3333
+  quorum-strato:
+    depends_on:
+      postgres:
+       condition: service_healthy
+    environment:
+    - ssl=${ssl}
+    - stratourl=${stratourl}
+    - cirrusurl=${cirrusurl}
+    - pgHost=${pgHost:-postgres}
+    - zkHost=${zkHost:-zookeeper}
+    - kafkaHost=${kafkaHost:-kafka}
+    - pgPass=${pgPass:-api}
+    - pgUser=${pgUser:-postgres}
+    - STRATO_PORT=${STRATO_PORT:-8801}
+    image: registry-aws.blockapps.net:5000/quorum-strato:80b5f03
+    ports:
+    - 8801:${STRATO_PORT:-8801}
+    restart: always
+  postgres-cirrus:
+    depends_on:
+    - quorum-strato
+    environment:
+    - POSTGRES_USER=postgres
+    - PG_ENV_POSTGRES_DB=cirrus
+    - PG_ENV_POSTGRES_USER=postgres
+    - POSTGRES_DB=cirrus
+    image: postgres:9.6
+    ports:
+    - 5434:5432
+  postgrest:
+    depends_on:
+    - postgres-cirrus
+    environment:
+    - PG_ENV_POSTGRES_DB=cirrus
+    - PG_ENV_POSTGRES_HOST=postgres-cirrus
+    - PG_ENV_POSTGRES_PASSWORD=
+    - PG_ENV_POSTGRES_USER=postgres
+    - PG_PORT_5432_TCP_PORT=5432
+    image: registry-aws.blockapps.net:5000/blockapps-repo/silo-postgrest:71b9977
+    ports:
+    - 3001:3001
+    restart: always
+  postgres:
+    image: registry-aws.blockapps.net:5000/blockapps-repo/silo-postgres:750b87e
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 30s
+      retries: 3
+  zookeeper:
+    environment:
+    - ZOO_MY_ID=1
+    image: zookeeper:3.4.9
+    ports:
+    - 2181:2181
+    restart: always
+  blockapps-docs:
+    environment:
+    - API_URL=/strato-api/eth/v1.2/swagger.json
+    image: registry-aws.blockapps.net:5000/blockapps-repo/silo-blockapps-docs:71ca83a
+    ports:
+    - 8080:8080
+    restart: always
+  kafka:
+    environment:
+    - KAFKA_ADVERTISED_HOST_NAME=kafka
+    - KAFKA_ADVERTISED_PORT=9092
+    - KAFKA_DELETE_TOPIC_ENABLE=true
+    - KAFKA_LOG_CLEANER_ENABLE=false
+    - KAFKA_LOG_RETENTION_HOURS=2147483647
+    - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+    image: registry-aws.blockapps.net:5000/blockapps-repo/silo-kafka:4a1bed5
+    links:
+    - zookeeper
+    ports:
+    - 9092:9092
+    restart: always
+  quorum-node1:
+    environment:
+    - HOST_IP=${HOST_IP}
+    - nodeId=1
+    image: registry-aws.blockapps.net:5000/blockapps/quorum-raft-node-kafka:09152017-1532
+    ports:
+    - 21001:21001
+    - 21001:21001/udp
+    - 22001:22001
+    - 54001:54001
+    - 9000:9000
+    volumes:
+    - ./config:/root/config/:ro
+    restart: always
+  quorum-node2:
+    environment:
+    - HOST_IP=${HOST_IP}
+    - nodeId=2
+    image: registry-aws.blockapps.net:5000/blockapps/quorum-raft-node:09152017-1450
+    ports:
+    - 21002:21002
+    - 21002:21002/udp
+    - 22002:22002
+    - 54002:54002
+    - 9001:9001
+    volumes:
+    - ./config:/root/config/:ro
+    restart: always
+  quorum-node3:
+    environment:
+    - HOST_IP=${HOST_IP}
+    - nodeId=3
+    image: registry-aws.blockapps.net:5000/blockapps/quorum-raft-node:09152017-1450
+    ports:
+    - 21003:21003
+    - 21003:21003/udp
+    - 22003:22003
+    - 54003:54003
+    - 9002:9002
+    volumes:
+    - ./config:/root/config/:ro
+    restart: always
