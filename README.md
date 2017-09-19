@@ -1,7 +1,12 @@
 # quorum-strato-getting-started
 
+[![BlockApps logo](http://blockapps.net/img/logo_cropped.png)](http://blockapps.net)
+
 <INSERT MARKETING TEXT HERE>
 
+
+## Architecture Diagram of the Quorum-STRATO platform
+![quorum STRATO architecture](architecture.png?raw=true "STRATO Management Dashboard")
 
 ### Pre-requisites
 
