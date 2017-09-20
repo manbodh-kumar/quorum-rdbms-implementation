@@ -1,4 +1,3 @@
-
 version: "2.1"
 services:
   bloch:
@@ -117,8 +116,9 @@ services:
   quorum-node1:
     environment:
     - HOST_IP=${HOST_IP}
+    - KAFKA=1
     - nodeId=1
-    image: registry-aws.blockapps.net:5000/blockapps/quorum-raft-node-kafka:09152017-1532
+    image: registry-aws.blockapps.net:5000/blockapps-repo/quorum-node
     ports:
     - 21001:21001
     - 21001:21001/udp
@@ -132,7 +132,7 @@ services:
     environment:
     - HOST_IP=${HOST_IP}
     - nodeId=2
-    image: registry-aws.blockapps.net:5000/blockapps/quorum-raft-node:09152017-1450
+    image: registry-aws.blockapps.net:5000/blockapps-repo/quorum-node
     ports:
     - 21002:21002
     - 21002:21002/udp
@@ -146,7 +146,7 @@ services:
     environment:
     - HOST_IP=${HOST_IP}
     - nodeId=3
-    image: registry-aws.blockapps.net:5000/blockapps/quorum-raft-node:09152017-1450
+    image: registry-aws.blockapps.net:5000/blockapps-repo/quorum-node
     ports:
     - 21003:21003
     - 21003:21003/udp
