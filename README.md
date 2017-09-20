@@ -2,11 +2,16 @@
 
 [![BlockApps logo](http://blockapps.net/img/logo_cropped.png)](http://blockapps.net)
 
-<INSERT MARKETING TEXT HERE>
-
+*TODO:* Turn these bullet points into marketing text, link back to strato-getting-started
+- brief description of quorum, with link to one of their marketing pages
+- description of the included blockapps value added services
+1. cirrus smart contract indexing engine (postgres) available via postgrest
+2. block and transaction indexing (postrgres) available via STRATO-api 
+- Supports the latest Quorum relase
+- E2E tested 
 
 ## Architecture Diagram of the Quorum-STRATO platform
-![quorum STRATO architecture](architecture.png?raw=true "STRATO Management Dashboard")
+![quorum STRATO architecture](architecture.png?raw=true "Quorum-STRATO Architecture")
 
 ### Pre-requisites
 
@@ -14,16 +19,6 @@
 
 - [Install Docker](https://www.docker.com/community-edition) on your machine
 - [Install Docker Compose](https://docs.docker.com/compose/install/) on your machine
-
-- For Mac users: Install `wget` using [Homebrew](https://brew.sh/) (use the steps below):
-
-    - Homebrew:
-
-        ```ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"```
-
-    - wget:
-
-        ```brew install wget --with-libressl```
 
 **Windows:**
 
