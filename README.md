@@ -2,13 +2,12 @@
 
 [![BlockApps logo](http://blockapps.net/img/logo_cropped.png)](http://blockapps.net)
 
-*TODO:* Turn these bullet points into marketing text, link back to strato-getting-started
-- brief description of quorum, with link to one of their marketing pages
-- description of the included blockapps value added services
-1. cirrus smart contract indexing engine (postgres) available via postgrest
-2. block and transaction indexing (postrgres) available via STRATO-api 
-- Supports the latest Quorum relase
-- E2E tested 
+Quorum is an Ethereum-based (forked from go-ethereum) distributed ledger protocol with transaction/contract privacy and new consensus mechanisms. More information [here](https://github.com/jpmorganchase/quorum). 
+
+Blockapps team added the following integrations to Quorum (geth1.6 stable):
+- BlockApps Cirrus smart-contract indexing engine (postgres) available via postgrest
+- Block and Transaction indexing (postrgres) available via STRATO-api 
+- End2End integration tested, test scripts part of this repo. 
 
 ## Architecture Diagram of the Quorum-STRATO platform
 ![quorum STRATO architecture](architecture.png?raw=true "Quorum-STRATO Architecture")
@@ -30,12 +29,12 @@
 2. Login to BlockApps public registry using the instructions in the email (after you get the email from BlockApps team)
 3. Clone this repository
 ```bash
-> git clone --recursive https://github.com/blockapps/quorum-getting-started.git
+> git clone --recursive https://github.com/blockapps/quorum-rdbms-implementation.git
 ```
 4. Run the instance:
  
  ```bash
- > cd quorum-strato-getting-started
+ > cd quorum-rdbms-implementation
  > env HOST_IP=<HOST_IP> ./quorum-strato-run.sh
  ```
  where:
@@ -43,3 +42,7 @@
 
 ### Running Tests
 Follow the instructions in the `README` for the [quorum-tests](https://github.com/blockapps/quorum-tests)
+
+### BlockApps STRATO Developer Edition
+- Developer Site: https://developers.blockapps.net/
+- Developer Support: https://developers.blockapps.net/support/
