@@ -1,4 +1,4 @@
-# quorum-strato-getting-started
+# Quorum-RDBMS Reference Implementation
 
 [![BlockApps logo](http://blockapps.net/img/logo_cropped.png)](http://blockapps.net)
 
