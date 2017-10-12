@@ -12,7 +12,7 @@ services:
     - stratoHost=${stratourl:-quorum-strato}
     - stratourl=${stratourl}/eth/v1.2
     - cirrusurl=${cirrusurl}
-    image: registry-aws.blockapps.net:5000/blockapps/bloc-solc:0.1
+    image: registry-aws.blockapps.net:5000/blockapps-repo/bloc-solc:0.1
     ports:
     - 10001:8000
     restart: always
@@ -49,7 +49,7 @@ services:
     - pgPass=${pgPass:-api}
     - pgUser=${pgUser:-postgres}
     - STRATO_PORT=${STRATO_PORT:-8801}
-    image: registry-aws.blockapps.net:5000/quorum-strato:80b5f03
+    image: registry-aws.blockapps.net:5000/blockapps-repo/quorum-strato:80b5f03
     ports:
     - 8801:${STRATO_PORT:-8801}
     restart: always
