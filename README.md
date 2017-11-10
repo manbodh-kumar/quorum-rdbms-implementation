@@ -25,7 +25,7 @@ Blockapps team added the following integrations to Quorum (geth1.6 stable):
 
 ### Steps
 
-1. Get docker registry credentials from BlockApps team via email trial@blockapps.net
+1. Register [here](http://developers.blockapps.net/trial) to get docker registry credentials from BlockApps team OR email us at trial@blockapps.net
 2. Login to BlockApps public registry using the instructions in the email (after you get the email from BlockApps team)
 3. Clone this repository
 ```bash
