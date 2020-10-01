@@ -7,7 +7,7 @@ Quorum is an Ethereum-based (forked from go-ethereum) distributed ledger protoco
 Blockapps team added the following integrations to Quorum (geth1.6 stable):
 - BlockApps Cirrus smart-contract indexing engine (postgres) available via postgrest
 - Block and Transaction indexing (postrgres) available via STRATO-api 
-- End2End integration tested, test scripts part of this repo. 
+- End2End integration testing, test scripts part of this repo. 
 
 ## Architecture Diagram of the Quorum-STRATO platform
 ![quorum STRATO architecture](architecture.png?raw=true "Quorum-STRATO Architecture")
